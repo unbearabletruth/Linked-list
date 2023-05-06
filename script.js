@@ -14,6 +14,7 @@ class LinkedList {
         let node = new Node(value);
         if (this.head === null){
             this.head = node;
+            return
         }
         let current = this.head;
         while (current.next){
@@ -26,6 +27,7 @@ class LinkedList {
         let node = new Node(value);
         if (this.head === null){
             this.head = node;
+            return
         }
         let previousHead = this.head;
         this.head = node;
@@ -43,10 +45,16 @@ class LinkedList {
     }
 
     getHead(){
+        if (this.head === null){
+            return "List is empty!"
+        }
         return `Head: ( ${this.head.value} )`;
     }
 
     getTail(){
+        if (this.head === null){
+            return "List is empty!"
+        }
         let node = this.head;
         while (node.next){
             node = node.next;
@@ -74,10 +82,12 @@ class LinkedList {
         while (node){
             if (index === size - 2){
                 node.next = null;
+                return
             }
             node = node.next;
             index++;
         }
+        this.head = null;
     }
 
     contains(value){
@@ -102,17 +112,6 @@ class LinkedList {
             index++;
         }
         return null;
-    }
-
-    toString(){
-        let string = "";
-        let current = this.head;
-        while(current) {
-            string += (`( ${current.value} ) -> `)
-            current = current.next;
-        }
-        string += ("null");
-        console.log(string);
     }
 
     insertAt(value, index){
@@ -154,11 +153,25 @@ class LinkedList {
         }
         console.log(`Can't remove at index: ${index}. No such index.`);
     }
+
+    toString(){
+        let string = "";
+        let current = this.head;
+        while(current) {
+            string += (`( ${current.value} ) -> `)
+            current = current.next;
+        }
+        string += ("null");
+        console.log(string);
+    }
 }
 
 let node1 = new Node(5);
 let list = new LinkedList(node1);
-list.append(7);
+list.pop()
+console.log(list.getTail())
+list.prepend(9);
+list.removeAt(0)
 list.append(9);
 list.prepend(3);
 list.prepend(2);
@@ -166,11 +179,10 @@ console.log(list.getHead())
 console.log(list.getTail())
 console.log(list.at(5))
 list.pop()
-console.log(list.contains(10))
-console.log(list.find(10))
-list.insertAt(15, 10)
+console.log(list.contains(9))
+console.log(list.find(2))
 list.insertAt(20, 0)
-list.insertAt(17, 6)
+console.log(list.size());
 list.insertAt(29, 4)
 list.removeAt(20)
 list.append(9);
