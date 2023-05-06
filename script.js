@@ -73,7 +73,6 @@ class LinkedList {
         let index = 0;
         while (node){
             if (index === size - 2){
-                console.log(node, index)
                 node.next = null;
             }
             node = node.next;
@@ -138,6 +137,23 @@ class LinkedList {
         }
         console.log(`Can't insert at index: ${index}. Index out of reach.`);
     }
+
+    removeAt(index){
+        let node = this.head;
+        if (index === 0){
+            this.head = node.next;
+            return;
+        }
+        let nodeIndex = 0;
+        while (node){
+            if(nodeIndex === index - 1){
+                node.next = node.next.next;
+            }
+            node = node.next;
+            nodeIndex++;
+        }
+        console.log(`Can't remove at index: ${index}. No such index.`);
+    }
 }
 
 let node1 = new Node(5);
@@ -146,7 +162,6 @@ list.append(7);
 list.append(9);
 list.prepend(3);
 list.prepend(2);
-console.log(list.size());
 console.log(list.getHead())
 console.log(list.getTail())
 console.log(list.at(5))
@@ -157,6 +172,8 @@ list.insertAt(15, 10)
 list.insertAt(20, 0)
 list.insertAt(17, 6)
 list.insertAt(29, 4)
+list.removeAt(20)
 list.append(9);
+console.log(list.size());
 list.toString()
 
