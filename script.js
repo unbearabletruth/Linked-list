@@ -68,10 +68,17 @@ class LinkedList {
     }
 
     pop(){
-        /*let size = this.size();
-        let penultimate = this.at(size - 2);
-        console.log(penultimate)
-        penultimate.next = null;*/
+        let node = this.head;
+        let size = this.size();
+        let index = 0;
+        while (node){
+            if (index === size - 2){
+                console.log(node, index)
+                node.next = null;
+            }
+            node = node.next;
+            index++;
+        }
     }
 
     contains(value){
@@ -108,6 +115,29 @@ class LinkedList {
         string += ("null");
         console.log(string);
     }
+
+    insertAt(value, index){
+        let node = new Node(value);
+        if (index === 0){
+            let previousHead = this.head;
+            this.head = node;
+            node.next = previousHead;
+            return;
+        }
+        let current = this.head;
+        let nodeIndex = 0;
+        while (current){
+            if (nodeIndex === index - 1){
+                let temp = current.next;
+                current.next = node;
+                node.next = temp;
+                return;
+            }
+            current = current.next;
+            nodeIndex++;
+        }
+        console.log(`Can't insert at index: ${index}. Index out of reach.`);
+    }
 }
 
 let node1 = new Node(5);
@@ -123,5 +153,10 @@ console.log(list.at(5))
 list.pop()
 console.log(list.contains(10))
 console.log(list.find(10))
+list.insertAt(15, 10)
+list.insertAt(20, 0)
+list.insertAt(17, 6)
+list.insertAt(29, 4)
+list.append(9);
 list.toString()
 
