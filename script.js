@@ -1,33 +1,46 @@
-class Node{
+class Node {
     constructor(value){
         this.value = value;
         this.next = null;
     }
 }
 
-class LinkedList{
+class LinkedList {
     constructor(head){
         this.head = head;
     }
 
     append(value){
-        let node = this.head;
-        if(node === null){
-            this.head = value;
-            return;
+        let node = new Node(value);
+        if (this.head === null){
+            this.head = node;
         }
-        while (node.next) {
-            node = node.next;
+        let current = this.head;
+        while (current.next){
+            current = current.next;
         }
-        node.next = value;
+        current.next = node;
     }
+    
 
     prepend(value){
-
+        let node = new Node(value);
+        if (this.head === null){
+            this.head = node;
+        }
+        let previousHead = this.head;
+        this.head = node;
+        node.next = previousHead;
     }
 
     size(){
-
+        let node = this.head;
+        let NodeCounter = 0;
+        while (node){
+            node = node.next;
+            NodeCounter++;
+        }
+        return NodeCounter;
     }
 
     getHead(){
@@ -64,13 +77,14 @@ class LinkedList{
         console.log(string);
     }
 }
-//( value ) -> ( value ) -> ( value ) -> null
+
 let node1 = new Node(5);
-let node2 = new Node(3);
-let node3 = new Node(9);
 let list = new LinkedList(node1);
-list.append(node2);
-list.append(node3);
+list.append(7);
+list.append(9);
+list.prepend(3);
+list.prepend(2);
+console.log(list.size());
 
 list.toString()
 
